@@ -22,7 +22,7 @@ exports.getTestimonialById = async (req, res) => {
 exports.createTestimonial = async (req, res) => {
   try {
     const { name, description, image, rating } = req.body; 
-    const newTestimonial = await testimonialModel.create({ name, description, image, rating }); // ✅ pass rating
+    const newTestimonial = await testimonialModel.create({ name, description, image, rating });
     res.status(201).json(newTestimonial); 
   } catch (err) {
     res.status(500).json({ error: err });
@@ -32,7 +32,7 @@ exports.createTestimonial = async (req, res) => {
 exports.updateTestimonial = async (req, res) => {
   try {
     const { name, description, image, rating } = req.body;
-    const updatedTestimonial = await testimonialModel.update(req.params.id, { name, description, image, rating }); // ✅ pass rating
+    const updatedTestimonial = await testimonialModel.update(req.params.id, { name, description, image, rating });
     res.json(updatedTestimonial);
   } catch (err) {
     res.status(500).json({ error: err });
