@@ -5,6 +5,7 @@ const bookRoutes = require('./routes/bookRoutes');
 const testimonialRoutes = require('./routes/testimonialRoutes');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/authRoutes');
+const inventoryRoutes = require('./routes/inventoryRoutes');
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(cors({
 
 app.use(cookieParser());
 app.use('/auth', authRoutes);
+app.use('/inventory', inventoryRoutes);
 app.use('/books', bookRoutes);
 app.use('/testimonials', testimonialRoutes);
 
