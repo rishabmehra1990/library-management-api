@@ -29,3 +29,31 @@ exports.deleteInventory = (id) => {
         });
     });
 };
+
+exports.searchInventory = (searchTerm) => {
+  const sql = 'SELECT * FROM inventory WHERE book_name LIKE ?';
+  return new Promise((resolve, reject) => {
+    db.query(sql, [`%${searchTerm}%`], (err, results) => {
+      if (err) return reject(err);
+      resolve(results);
+    });
+  });
+};
+
+exports.getDashboardStats = () => {
+  const sql = `
+       SELECT 
+        SUM(book_quantity) AS totalQuantity,
+        COUNT(*) AS totalBooks,
+        SUM(CASE WHEN status = 'Inactive' THEN 1 ELSE 0 END) AS availableBooks
+      FROM inventory
+    `;
+  return new Promise((resolve, reject) => {
+    db.query(sql, (err, results) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(results[0]);
+    });
+  });
+};

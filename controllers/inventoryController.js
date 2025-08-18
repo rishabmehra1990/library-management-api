@@ -40,3 +40,29 @@ exports.deleteInventory = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+exports.searchInventory = async (req, res) => {
+  try {
+    const search = req.query.search || "";
+
+    if (!search) {
+      const results = await Inventory.getAllInventory();
+      return res.json(results);
+    }
+
+    const results = await Inventory.searchInventory(search);
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getStats = async (req, res) => {
+  try {
+    const stats = await Inventory.getDashboardStats();
+    res.json(stats);
+  } catch (error) {
+    console.error("Error fetching stats:", error);
+    res.status(500).json({ error: "Failed to fetch dashboard stats" });
+  }
+};
